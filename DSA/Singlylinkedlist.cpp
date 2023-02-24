@@ -16,15 +16,7 @@ class Node
   }
 }; 
 
-//SECOND way of writing the node STRUCTURE
- /*struct Node
-{
-  int data;
-  Node *next;
-  Node(int data): data(data), next(NULL) {}
-};*/
-
-class LinkedList
+class SinglyLinkedList
 {
  // private: this can be omitted as well. No issues there
   Node *header;
@@ -33,38 +25,18 @@ class LinkedList
   
   //default constructor
   public:
-  LinkedList()
+  SinglyLinkedList()
   {
     header=NULL;
     tail=NULL;
     size=0;
   }
 
-  int get(int index) {
-        Node *temp=header;
-        auto num=header->next;
-        cout<<header->next<<endl;
-        int flag=-1;
-        if(index>size || index<0)
-            return flag;
-        else
-        {
-           for(int i=0;i<index;i++)
-           {
-              temp=temp->next;
-           }
-           flag=temp->data;
-           return flag;
-        }
-    }
-
-  int getsize()
+  void append()
   {
-    return size;
-  }
-
-  void append(int data)
-  {
+    int data;
+    cout<<"Enter the number you want to append: ";
+    cin>>data;
     //create new node
     Node *n=new Node(data);
     
@@ -86,8 +58,11 @@ class LinkedList
     size++;
   }
 
-  void prepend(int data)
+  void prepend()
   {
+    int data;
+    cout<<"Enter the number you want to prepend: ";
+    cin>>data;
     //create new node
     Node *n=new Node(data);
 
@@ -115,6 +90,7 @@ class LinkedList
     //create temp pointer that points to the first node
     Node *temp=header;
 
+    cout<<"The current List is: ";
     //create a loop that stops when pointer is NULL
     while(temp!=NULL)
     {
@@ -123,7 +99,7 @@ class LinkedList
       //advance pointer to next node
       temp=temp->next;
     }
-    cout << endl;
+    cout <<"\n"<< endl;
    
   }
 
@@ -173,8 +149,11 @@ class LinkedList
     }
   }
 
-  void removeAt(int pos)
+  void removeAt()
   {
+    cout<<"Enter the position of the node you want to remove: ";
+    int pos;
+    cin>>pos;
     //Case 1: check if pos is valid
     if(pos>size || pos<1)
     return;          //but this is a void function
@@ -205,23 +184,29 @@ class LinkedList
     }
   }
 
-  void InsertAt(int pos, int data)
+  void InsertAt()
   {
+    int pos;
+    int data;
+    cout<<"Enter the position where you want to add a node: ";
+    cin>>pos;
     //Case 1: check if pos is valid
     if(pos>size+1 || pos<1)    
     return;       // again the return thingy
 
     //Case 2: check if insertion is at the beginning
     else if(pos==1)
-    prepend(data);
+    prepend();
 
     //Case 3: check if insertion is at the end of the list
     else if(pos==size+1)
-    append(data);
+    append();
 
     //Case 4: for all other cases
     else if(header!=NULL)
     {
+      cout<<"Enter the number you want to add: ";
+      cin>>data;
       Node *n=new Node(data);
       Node *prev;
       Node *curr=header;
@@ -237,23 +222,13 @@ class LinkedList
       size++;
     }
   }
-   
-  //linked list destructor
-  void destr()
-  {
-    Node *next;
-    while(header!=NULL)
-    {
-      next=header->next;
-      delete header;
-      header=next;
-      size--;
-    }
-  }
-
+  
   // to search an item in the list
-  void search(int item)
+  void search()
   {
+    cout<<"Enter the item you want to search: ";
+    int item;
+    cin>>item;
     Node *ans=header;
     int flag=-1;
     for(int i=1;i<=size;i++)
@@ -275,7 +250,7 @@ class LinkedList
   //Sorting in ascending order the elements of the list
   void sort()
   {
-    
+    cout<<"The sorted list is: ";
     int i=size;
     while(i>1)
     {
@@ -290,28 +265,58 @@ class LinkedList
       }
       i--;
     }
+    printing();
   }
 };
 
-//main method
-int main()
+
+void SLL()
 {
-  LinkedList list;
-  list.append(10);
-  list.append(20);
-  list.append(9);
-  list.append(6);
-  list.append(28);
-  list.append(65);
-  int l=list.get(2);
-  cout<<"val of l is" <<l<<endl;
-  list.printing();
-  list.removelast();
-  list.InsertAt(3,14);
-  list.search(2);
-  list.printing();
-  list.sort(); 
-  list.printing(); 
+  SinglyLinkedList sll;
+  int ch;
+  cout<<"SINGLY LINKED LIST BY ASTHA VARSHNEY"<<endl;
+	cout<<"------------"<<endl;
+  int i=1;
+  cout<<"MENU: "<<endl;
+  cout<<"-------------------"<<endl; 
+  cout<<"1.APPEND\n2.PREPEND\n3.DISPLAY\n4.REMOVE FIRST\n5.REMOVE LAST\n6.REMOVE AT\n7.INSERT AT\n8.SEARCH\n9.SORT\n10.EXIT\n";
+  
+  while(i)
+  { 
+    cout<<"-------------------"<<endl; 
+    cout<<"Enter your choice (1-10)"<<endl;
+    cout<<"-------------------"<<endl; 
+   cin>>ch;
+    switch(ch)
+    {
+      case 1:sll.append();
+             break;
+      case 2:sll.prepend();
+             break;
+      case 3:sll.printing();
+             break;
+      case 4:sll.removefirst();
+             break;
+      case 5:sll.removelast();
+             break;
+      case 6:sll.removeAt();
+             break;
+      case 7:sll.InsertAt();
+             break;
+      case 8:sll.search();
+             break;
+      case 9:sll.sort();
+             break;
+      case 10:i=0;
+             break;
+      default:cout<<"Wrong Choice!!!!"<<endl;
+             break;
+    }
+  }
+  cout<<"------------------"<<endl;
+  cout<<"The END"<<endl;
+  cout<<"------------------"<<endl;
+  return;  
 } 
 
 

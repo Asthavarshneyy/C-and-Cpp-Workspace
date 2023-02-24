@@ -115,6 +115,51 @@ class LinkedList
     }
   }
 
+  // to ceck if node exists using key value
+  Node * nodeExists(int k) {
+    Node * temp = NULL;
+    Node * ptr = header;
+
+    while (ptr != NULL) {
+      if (ptr -> data == k) {
+        temp = ptr;
+      }
+      ptr = ptr -> next;
+    }
+    return temp;
+  }
+
+  //to delete a node at the given index
+  void Delete(int k) {
+    Node * ptr = nodeExists(k);
+    if (ptr == NULL) {
+      cout << "No node exists with key value: " << k << endl;
+    } else {
+
+      if (header -> data == k) {
+        header = header -> next;
+        cout << "Node UNLINKED with keys value : " << k << endl;
+      } else {
+        Node * nextNode = ptr -> next;
+        Node * prevNode = ptr -> prev;
+        // deleting at the end
+        if (nextNode == NULL) {
+
+          prevNode -> next = NULL;
+          cout << "Node Deleted at the END" << endl;
+        }
+
+        //deleting in between
+        else {
+          prevNode ->next = nextNode;
+          nextNode -> prev = prevNode;
+          cout << "Node Deleted in Between" << endl;
+
+        }
+      }
+    }
+  }
+
   //printing
   void printing()
   {
@@ -141,33 +186,13 @@ int main()
 {
   LinkedList list;
   list.append(23);
-  list.prepend(10);
-  cout << "hello"<<endl;
+  list.prepend(11);
+  list.append(28);
+  list.insertAt(2,65);
+  list.printing();
+  list.Delete(11);
   list.printing();
 }
-
-
-//main method
-/* int main()
-{
-  cout<<"byed"<<endl;
-  LinkedList list;
-  list.append(10);
-  list.append(20);
-  list.append(9);
-  list.append(6);
-  list.append(28);
-  list.append(65);
-  list.removelast();
-  list.InsertAt(3,14);
-  list.search(2);
-  list.printing();
-  list.sort(); 
-  cout<<"hello"<<endl;
-} */
-
-
-
 
 
 
